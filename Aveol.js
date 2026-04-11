@@ -28,77 +28,12 @@ window.addEventListener("load", () => {
   }
 });
 
-// ═══════════════════════════════════════════════════
-//  CUSTOM CURSOR — dual layer (dot + ring) with lerp
-//  Elements injected via JS so they're last in DOM,
-//  which guarantees rendering above nav/backdrop-filter.
-// ═══════════════════════════════════════════════════
+// ── GRID LINES OVERLAY ──
 (function () {
-  // Create cursor elements and append LAST to body
-  const dot = document.createElement('div');
-  dot.id = 'cursor-dot';
-  document.body.appendChild(dot);
-
-  const ring = document.createElement('div');
-  ring.id = 'cursor-ring';
-  document.body.appendChild(ring);
-
-  // Create grid lines overlay
   const grid = document.createElement('div');
   grid.id = 'gridLines';
   document.body.appendChild(grid);
-
-  let mx = window.innerWidth / 2, my = window.innerHeight / 2;
-  let rx = mx, ry = my;
-
-  document.addEventListener('mousemove', e => {
-    mx = e.clientX;
-    my = e.clientY;
-    // Dot follows instantly
-    dot.style.left = mx + 'px';
-    dot.style.top  = my + 'px';
-    // Spawn trail particle occasionally
-    if (Math.random() < 0.20) spawnTrail(mx, my);
-  });
-
-  // Ring lerps with a lag for smooth follow
-  (function animRing() {
-    rx += (mx - rx) * 0.12;
-    ry += (my - ry) * 0.12;
-    ring.style.left = rx + 'px';
-    ring.style.top  = ry + 'px';
-    requestAnimationFrame(animRing);
-  })();
-
-  // Hover state on interactive elements
-  const hoverSel = 'a, button, .card, .step, .audience-card, .value-card, .big-stat, input, select, textarea, .faq-q';
-  document.addEventListener('mouseover', e => {
-    if (e.target.closest(hoverSel)) document.body.classList.add('cursor-hover');
-  });
-  document.addEventListener('mouseout', e => {
-    if (e.target.closest(hoverSel)) document.body.classList.remove('cursor-hover');
-  });
-
-  // Click pulse
-  document.addEventListener('mousedown', () => document.body.classList.add('cursor-click'));
-  document.addEventListener('mouseup',   () => document.body.classList.remove('cursor-click'));
-
-  // Hide while outside window
-  document.addEventListener('mouseleave', () => { dot.style.opacity = '0'; ring.style.opacity = '0'; });
-  document.addEventListener('mouseenter', () => { dot.style.opacity = '1'; ring.style.opacity = '1'; });
 })();
-
-// ═══════════════════════════════════════════════════
-//  CURSOR TRAIL SPARKS
-// ═══════════════════════════════════════════════════
-function spawnTrail(x, y) {
-  const t = document.createElement('div');
-  t.className = 'cursor-trail';
-  const sz = Math.random() * 4 + 2;
-  t.style.cssText = `left:${x}px;top:${y}px;width:${sz}px;height:${sz}px;`;
-  document.body.appendChild(t);
-  setTimeout(() => t.remove(), 650);
-}
 
 // ── MOUSE GLOW ──
 const glow = document.getElementById("glow");
