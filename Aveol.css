@@ -4254,3 +4254,56 @@ footer {
 .card:hover::after, .audience-card:hover::after, .pricing-card:hover::after {
   left: 150%;
 }
+
+/* ══════════════════════════════════════════════
+   MOBILE FIXES
+══════════════════════════════════════════════ */
+* {
+  box-sizing: border-box;
+}
+
+img {
+  max-width: 100%;
+  height: auto;
+}
+
+@media (max-width: 991px) {
+  body, html {
+    max-width: 100vw;
+    overflow-x: hidden;
+  }
+}
+
+@media (max-width: 768px) {
+  .btn-primary, .nav-cta, .btn-ghost-full, button, input[type="submit"], a.btn-primary {
+    min-height: 44px !important;
+    padding: 14px 24px !important;
+    font-size: 16px !important;
+    display: flex !important;
+    align-items: center;
+    justify-content: center;
+  }
+  
+  body, p, li, input, select, textarea, .faq-a, .faq-q, .pricing-early-note p, .card p, .trust-text, .pricing-desc {
+    font-size: 16px !important;
+  }
+
+  .trust-row, .steps {
+    display: flex !important;
+    flex-direction: column !important;
+    gap: 24px !important;
+    width: 100% !important;
+  }
+
+  .step-arrow, .trust-divider, .comp-divider {
+    display: none !important;
+  }
+
+  .hero-title {
+    font-size: 42px !important;
+  }
+
+  .hero {
+    padding: 0 16px;
+  }
+}
