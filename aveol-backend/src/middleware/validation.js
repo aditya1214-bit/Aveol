@@ -32,13 +32,10 @@ const validateAuditSubmission = [
     .isLength({ max: 150 }).withMessage('Company name too long.'),
 
   body('industry')
-    .notEmpty().withMessage('Industry is required.')
-    .isIn(['Agency', 'Consultancy', 'SaaS', 'E-commerce', 'Healthcare', 'Finance', 'Real Estate', 'Logistics', 'Education', 'Manufacturing', 'Retail', 'Other'])
-    .withMessage('Invalid industry.'),
+    .notEmpty().withMessage('Industry is required.'),
 
   body('teamSize')
-    .optional()
-    .isIn(['1-5', '6-20', '21-50', '51-200', '200+']).withMessage('Invalid team size.'),
+    .optional(),
 
   body('biggestBottlenecks')
     .optional()
@@ -53,9 +50,7 @@ const validateAuditSubmission = [
     .isLength({ max: 1000 }).withMessage('Max 1000 characters.'),
 
   body('budgetRange')
-    .optional()
-    .isIn(['Under ₹25,000', '₹25,000–₹75,000', '₹75,000–₹2,00,000', '₹2,00,000+', 'Depends on ROI'])
-    .withMessage('Invalid budget range.'),
+    .optional(),
 
   handleValidationErrors,
 ];
