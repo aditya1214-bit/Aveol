@@ -72,14 +72,14 @@ const submitContact = async (req, res) => {
 
     try {
       if (process.env.GMAIL_USER && process.env.GMAIL_APP_PASSWORD) {
+        logger.info(`[EMAIL] Attempting to send to rajaditya81156@gmail.com using GMAIL_USER=${process.env.GMAIL_USER}`);
         await transporter.sendMail(mailOptions);
-        logger.info(`Contact email sent successfully for ${email}`);
+        logger.info(`[EMAIL] ✅ Contact email sent successfully for ${email}`);
       } else {
-        logger.warn('Contact email skipped: GMAIL_USER or GMAIL_APP_PASSWORD not set in .env');
+        logger.warn(`[EMAIL] ❌ Skipped — GMAIL_USER="${process.env.GMAIL_USER}" GMAIL_APP_PASSWORD="${process.env.GMAIL_APP_PASSWORD ? 'SET' : 'MISSING'}"`);
       }
     } catch (emailErr) {
-      // The email failed, but we already responded 201 Created and saved to DB
-      logger.error('Failed to send contact notification email:', emailErr);
+      logger.error(`[EMAIL] ❌ FAILED — Code: ${emailErr.code} | Message: ${emailErr.message} | Response: ${emailErr.response}`);
     }
 
   } catch (err) {
