@@ -55,7 +55,6 @@ const wrapEmail = (bodyContent) => `
 
 // ── Send Audit Report Email ───────────────────────────────────────────────────
 const sendAuditReportEmail = async (client, auditResponse, pdfPath) => {
-  const transporter = createTransporter();
   const analysis = auditResponse.aiAnalysis;
 
   const agentCards = (analysis.recommendedAgents || [])
@@ -163,7 +162,6 @@ const sendFollowUp1Email = async (client) => {
 
 // ── Follow-up Email 2 (Day 7) ─────────────────────────────────────────────────
 const sendFollowUp2Email = async (client) => {
-  const transporter = createTransporter();
 
   const body = `
     <h1 class="h1">Last nudge — your automation window is open 🪟</h1>
@@ -198,7 +196,6 @@ const sendFollowUp2Email = async (client) => {
 
 // ── Admin Notification Email ──────────────────────────────────────────────────
 const sendAdminNotification = async (client, auditResponse, type = 'new_lead') => {
-  const transporter = createTransporter();
 
   const subjects = {
     new_lead: `🔥 New Audit Submission — ${client.companyName} (Score: ${auditResponse?.aiAnalysis?.auditScore || '?'}/100)`,
