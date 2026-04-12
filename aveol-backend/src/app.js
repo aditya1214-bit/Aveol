@@ -9,6 +9,7 @@ const { generalLimiter } = require('./middleware/rateLimiter');
 const auditRoutes = require('./routes/auditRoutes');
 const adminRoutes = require('./routes/adminRoutes');
 const webhookRoutes = require('./routes/webhookRoutes');
+const contactRoutes = require('./routes/contactRoutes');
 
 const app = express();
 
@@ -81,6 +82,7 @@ app.get('/health', (req, res) => {
 app.use('/api/audit', auditRoutes);
 app.use('/api/admin', adminRoutes);
 app.use('/api/webhooks', webhookRoutes);
+app.use('/api/contact', contactRoutes);
 
 // ── 404 handler ───────────────────────────────────────────────────────────────
 app.use('*', (req, res) => {
