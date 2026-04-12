@@ -13,6 +13,9 @@ const contactRoutes = require('./routes/contactRoutes');
 
 const app = express();
 
+// ── Trust Render's reverse proxy (fixes X-Forwarded-For / rate-limiter) ───────
+app.set('trust proxy', 1);
+
 // ── Security headers ──────────────────────────────────────────────────────────
 app.use(helmet({
   crossOriginResourcePolicy: { policy: 'cross-origin' },
