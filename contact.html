@@ -673,9 +673,12 @@
             window.scrollTo({ top: 0, behavior: 'smooth' });
         }
 
-        // Checkbox tool chips toggle
+        // Checkbox tool chips toggle — sync visual state with checkbox
         document.querySelectorAll('.tool-chip').forEach(chip => {
-            chip.addEventListener('click', () => chip.classList.toggle('selected'));
+            const cb = chip.querySelector('input[type="checkbox"]');
+            cb.addEventListener('change', () => {
+                chip.classList.toggle('selected', cb.checked);
+            });
         });
 
         // Step 1 → 2

@@ -130,22 +130,43 @@ window.addEventListener("load", () => {
   document.querySelectorAll(".big-stat").forEach(el => statObserver.observe(el));
 });
 
-// ── CARD 3D TILT ──
+// ── CARD 3D TILT (all card types, site-wide) ──
 document.addEventListener("mousemove", (e) => {
-  document.querySelectorAll(".card, .pricing-card, .value-card, .audience-card").forEach(card => {
+  const SELECTORS = '.card, .pricing-card, .value-card, .audience-card, .blog-card, .step, .big-stat';
+  document.querySelectorAll(SELECTORS).forEach(card => {
     const rect = card.getBoundingClientRect();
     const cx   = rect.left + rect.width  / 2;
     const cy   = rect.top  + rect.height / 2;
     const dx   = (e.clientX - cx) / (rect.width  / 2);
     const dy   = (e.clientY - cy) / (rect.height / 2);
     const dist = Math.sqrt(dx * dx + dy * dy);
-    if (dist < 1.4) {
-      card.style.transform = `perspective(900px) rotateY(${dx * 4}deg) rotateX(${-dy * 4}deg) translateY(-4px)`;
+    if (dist < 1.5) {
+      // Clamp rotation to max ±7deg
+      const rx = Math.max(-7, Math.min(7, -dy * 7));
+      const ry = Math.max(-7, Math.min(7,  dx * 7));
+      card.style.transform = `perspective(900px) rotateY(${ry}deg) rotateX(${rx}deg) translateZ(10px)`;
     } else {
-      card.style.transform = "";
+      card.style.transform = '';
     }
   });
 });
+
+// ── SECTION TITLES: subtle mouse-parallax depth shift ──
+document.addEventListener('mousemove', (e) => {
+  const cx = window.innerWidth  / 2;
+  const cy = window.innerHeight / 2;
+  const dx = (e.clientX - cx) / cx;  // -1 to 1
+  const dy = (e.clientY - cy) / cy;
+
+  document.querySelectorAll('.section-title, .hero-title').forEach(el => {
+    const rect = el.getBoundingClientRect();
+    // Only affect elements in the viewport
+    if (rect.top < window.innerHeight && rect.bottom > 0) {
+      el.style.transform = `perspective(1000px) rotateY(${dx * 1.5}deg) rotateX(${-dy * 1}deg)`;
+    }
+  });
+});
+
 
 // ═══════════════════════════════════════════════════
 //  MAGNETIC BUTTONS — gentle pull toward cursor + ripple

@@ -4309,3 +4309,297 @@ img {
     padding: 0 16px;
   }
 }
+
+/* ══════════════════════════════════════════════════════
+   3D ENHANCEMENT LAYER — CSS perspective & depth effects
+   (pure additions — nothing above is modified)
+══════════════════════════════════════════════════════ */
+
+/* ── Global perspective scaffolding ── */
+.section-inner,
+.audit-wrap,
+.cards,
+.steps,
+.stats-grid,
+.roadmap {
+  perspective: 1400px;
+  perspective-origin: 50% 40%;
+}
+
+/* ── Cards: upgrade to true 3D transform-style ── */
+.card,
+.audience-card,
+.value-card,
+.pricing-card,
+.blog-card,
+.roadmap-phase,
+.step,
+.big-stat,
+.faq-item,
+.roi-result-card,
+.tool-chip {
+  transform-style: preserve-3d;
+  will-change: transform;
+  transition: transform 0.35s cubic-bezier(0.22, 1, 0.36, 1),
+              box-shadow 0.35s ease,
+              border-color 0.35s ease;
+}
+
+/* ── Gold layered depth shadow on hover ── */
+.card:hover,
+.audience-card:hover,
+.value-card:hover,
+.pricing-card:hover,
+.blog-card:hover {
+  box-shadow:
+    0 2px  0px 0px rgba(201,162,77,0.15),
+    0 4px  0px 0px rgba(201,162,77,0.10),
+    0 8px  0px 0px rgba(201,162,77,0.06),
+    0 16px 40px 0px rgba(0,0,0,0.55),
+    0 0    30px 0px rgba(201,162,77,0.08);
+}
+
+/* ── Section title 3D text extrusion ── */
+.section-title,
+.hero-title,
+.article-title {
+  text-shadow:
+    1px 1px 0 rgba(201,162,77,0.08),
+    2px 2px 0 rgba(201,162,77,0.05),
+    3px 3px 0 rgba(0,0,0,0.3);
+  transition: text-shadow 0.4s ease;
+}
+
+.section-title:hover,
+.hero-title:hover {
+  text-shadow:
+    1px  1px 0 rgba(201,162,77,0.18),
+    2px  2px 0 rgba(201,162,77,0.12),
+    3px  3px 0 rgba(201,162,77,0.07),
+    4px  4px 0 rgba(0,0,0,0.3),
+    0 0 40px rgba(201,162,77,0.12);
+}
+
+/* ── Gold text: perspective translateZ lift ── */
+.gold-text {
+  display: inline-block;
+  transition: transform 0.4s cubic-bezier(0.22, 1, 0.36, 1),
+              text-shadow 0.4s ease;
+}
+
+.section-title:hover .gold-text,
+.hero-title:hover .gold-text {
+  transform: perspective(400px) translateZ(8px) rotateX(-2deg);
+  text-shadow:
+    0  2px 0  rgba(201,162,77,0.25),
+    0  4px 0  rgba(201,162,77,0.14),
+    0  6px 0  rgba(0,0,0,0.20),
+    0  0   50px rgba(201,162,77,0.35);
+}
+
+/* ── Step cards: float with Z-lift ── */
+.step:hover {
+  transform: perspective(900px) translateZ(18px) translateY(-6px) rotateX(-2deg);
+  border-color: var(--border-hover);
+  box-shadow:
+    0 20px 50px rgba(0,0,0,0.5),
+    0 0    20px rgba(201,162,77,0.08),
+    inset 0 1px 0 rgba(201,162,77,0.15);
+}
+
+/* ── Stat badges: Z-pop ── */
+.big-stat:hover {
+  transform: perspective(600px) translateZ(20px) scale(1.03);
+  box-shadow: 0 24px 48px rgba(0,0,0,0.4), 0 0 24px rgba(201,162,77,0.1);
+}
+
+.big-num {
+  display: inline-block;
+  transition: transform 0.4s cubic-bezier(0.22, 1, 0.36, 1),
+              text-shadow 0.4s ease;
+}
+
+.big-stat:hover .big-num {
+  transform: perspective(300px) translateZ(12px);
+  text-shadow:
+    2px  2px 0 rgba(201,162,77,0.15),
+    4px  4px 0 rgba(0,0,0,0.3),
+    0 0 30px rgba(201,162,77,0.2);
+}
+
+/* ── FAQ items: Z-depth when open ── */
+.faq-item.open {
+  transform: perspective(700px) translateZ(10px) scale(1.01);
+  box-shadow: 0 12px 32px rgba(0,0,0,0.35), 0 0 16px rgba(201,162,77,0.06);
+}
+
+/* ── Roadmap phases: depth layers ── */
+.roadmap-phase {
+  transition: transform 0.4s cubic-bezier(0.22, 1, 0.36, 1),
+              box-shadow 0.4s ease;
+}
+
+.roadmap-phase:hover {
+  transform: perspective(800px) translateZ(16px) translateX(6px);
+  box-shadow: -4px 0 0 var(--gold), 0 12px 36px rgba(0,0,0,0.4);
+}
+
+/* ── Tool chips: Z-pop on select/hover ── */
+.tool-chip:hover {
+  transform: perspective(500px) translateZ(8px) scale(1.04);
+}
+
+.tool-chip.selected {
+  transform: perspective(500px) translateZ(12px) scale(1.05);
+  box-shadow: 0 6px 20px rgba(201,162,77,0.2);
+}
+
+/* ── Hero badge: 3D float ── */
+.hero-badge {
+  transform-style: preserve-3d;
+  transition: transform 0.4s cubic-bezier(0.22, 1, 0.36, 1),
+              box-shadow 0.4s ease;
+}
+
+.hero-badge:hover {
+  transform: perspective(400px) translateZ(14px) scale(1.04);
+  box-shadow: 0 8px 28px rgba(201,162,77,0.25), 0 0 0 1px rgba(201,162,77,0.4);
+}
+
+/* ── Nav CTA: 3D lift ── */
+.nav-cta {
+  transform-style: preserve-3d;
+  transition: transform 0.3s cubic-bezier(0.22, 1, 0.36, 1),
+              background 0.3s ease,
+              color 0.3s ease,
+              box-shadow 0.3s ease;
+}
+
+.nav-cta:hover {
+  transform: perspective(300px) translateZ(8px) translateY(-2px);
+  box-shadow: 0 8px 24px rgba(201,162,77,0.25);
+}
+
+/* ── Blog grid perspective container ── */
+.blog-grid {
+  perspective: 1200px;
+}
+
+.blog-card {
+  transition: transform 0.4s cubic-bezier(0.22, 1, 0.36, 1),
+              box-shadow 0.4s ease,
+              border-color 0.4s ease;
+}
+
+.blog-card:hover {
+  transform: perspective(800px) rotateY(-3deg) rotateX(2deg) translateZ(12px);
+  box-shadow: 6px 12px 40px rgba(0,0,0,0.5), 0 0 20px rgba(201,162,77,0.07);
+}
+
+/* ── Pricing card deeper depth ── */
+.pricing-card:hover {
+  transform: perspective(900px) translateZ(24px) translateY(-8px);
+  box-shadow:
+    0 4px  0 rgba(201,162,77,0.2),
+    0 8px  0 rgba(201,162,77,0.1),
+    0 32px 60px rgba(0,0,0,0.55),
+    0 0    30px rgba(201,162,77,0.09);
+}
+
+/* ── Marquee: subtle top-perspective plane ── */
+.marquee-wrap {
+  transform: perspective(800px) rotateX(1.5deg);
+  transform-origin: top center;
+  transition: transform 0.5s ease;
+}
+
+.marquee-wrap:hover {
+  transform: perspective(800px) rotateX(0deg);
+}
+
+/* ── Trust items: Z-hover ── */
+.trust-item {
+  transition: transform 0.35s cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+.trust-item:hover {
+  transform: perspective(400px) translateZ(10px) translateY(-3px);
+}
+
+/* ── ROI result cards: Z-depth ── */
+.roi-result-card {
+  transition: transform 0.35s cubic-bezier(0.22, 1, 0.36, 1),
+              box-shadow 0.35s ease;
+}
+
+.roi-result-card:hover {
+  transform: perspective(500px) translateZ(14px) scale(1.04);
+  box-shadow: 0 10px 30px rgba(0,0,0,0.4), 0 0 16px rgba(201,162,77,0.1);
+}
+
+/* ── Section label: subtle Z-push ── */
+.section-label {
+  display: inline-block;
+  transition: transform 0.4s ease, letter-spacing 0.4s ease;
+}
+
+.section-label:hover {
+  transform: perspective(300px) translateZ(6px);
+  letter-spacing: 4px;
+}
+
+/* ── Scroll reveal: Z-entry animation ── */
+.reveal {
+  opacity: 0;
+  transform: perspective(800px) translateY(28px) translateZ(-30px);
+  transition: opacity 0.7s cubic-bezier(0.22, 1, 0.36, 1),
+              transform 0.7s cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+.reveal.active {
+  opacity: 1;
+  transform: perspective(800px) translateY(0) translateZ(0);
+}
+
+/* ── Footer links: subtle 3D lift ── */
+.footer-links a {
+  display: inline-block;
+  transition: transform 0.3s ease, color 0.3s ease;
+}
+
+.footer-links a:hover {
+  transform: perspective(200px) translateZ(6px) translateY(-2px);
+  color: var(--gold);
+}
+
+/* ── Disable heavy 3D on touch/mobile for performance ── */
+@media (max-width: 768px) {
+  .card:hover,
+  .audience-card:hover,
+  .value-card:hover,
+  .pricing-card:hover,
+  .blog-card:hover,
+  .step:hover,
+  .big-stat:hover,
+  .roadmap-phase:hover {
+    transform: translateY(-4px);
+  }
+
+  .section-title:hover .gold-text,
+  .hero-title:hover .gold-text {
+    transform: none;
+  }
+
+  .marquee-wrap,
+  .marquee-wrap:hover {
+    transform: none;
+  }
+
+  .reveal {
+    transform: translateY(20px);
+  }
+
+  .reveal.active {
+    transform: translateY(0);
+  }
+}
