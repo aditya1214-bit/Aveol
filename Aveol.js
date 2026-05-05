@@ -1,4 +1,4 @@
-﻿// ΓöÇΓöÇ DEV STATUS BANNER ΓöÇΓöÇ
+// ΓöÇΓöÇ DEV STATUS BANNER ΓöÇΓöÇ
 (function () {
   const banner = document.createElement('div');
   banner.id = 'devBanner';
@@ -227,88 +227,8 @@ if (hamburger && mobileMenu) {
 
 // ΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉ
 //  PARTICLES CANVAS ΓÇö mouse repulsion effect
+//  (Replaced by the modular ai-bg.js implementation)
 // ΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉ
-const canvas = document.getElementById("particles");
-if (canvas) {
-  const ctx = canvas.getContext("2d");
-  let particles = [];
-  const GOLD         = "201,162,77";
-  let mouseX         = -9999, mouseY = -9999;
-  const REPEL_RADIUS = 130;
-  const REPEL_FORCE  = 1.6;
-
-  document.addEventListener('mousemove', e => { mouseX = e.clientX; mouseY = e.clientY; });
-
-  const resize = () => {
-    canvas.width  = window.innerWidth;
-    canvas.height = window.innerHeight;
-  };
-
-  const spawn = () => {
-    particles = Array.from({ length: 82 }, () => {
-      const vx = (Math.random() - 0.5) * 0.3;
-      const vy = (Math.random() - 0.5) * 0.3;
-      return {
-        x:   Math.random() * canvas.width,
-        y:   Math.random() * canvas.height,
-        vx, vy, bvx: vx, bvy: vy,
-        r:   Math.random() * 1.2 + 0.4,
-        o:   Math.random() * 0.22 + 0.05,
-      };
-    });
-  };
-
-  const draw = () => {
-    if (window.scrollY < window.innerHeight * 1.5) {
-      ctx.clearRect(0, 0, canvas.width, canvas.height);
-
-      for (let i = 0; i < particles.length; i++) {
-        const p   = particles[i];
-        const dxm = p.x - mouseX;
-        const dym = p.y - mouseY;
-        const dm  = Math.hypot(dxm, dym);
-
-        // Mouse repulsion push
-        if (dm < REPEL_RADIUS && dm > 0) {
-          const force = ((REPEL_RADIUS - dm) / REPEL_RADIUS) * REPEL_FORCE;
-          p.vx += (dxm / dm) * force * 0.04;
-          p.vy += (dym / dm) * force * 0.04;
-        }
-        // Restore toward base velocity
-        p.vx += (p.bvx - p.vx) * 0.018;
-        p.vy += (p.bvy - p.vy) * 0.018;
-
-        // Draw connecting lines
-        for (let j = i + 1; j < particles.length; j++) {
-          const d = Math.hypot(particles[i].x - particles[j].x, particles[i].y - particles[j].y);
-          if (d < 130) {
-            ctx.beginPath();
-            ctx.moveTo(particles[i].x, particles[i].y);
-            ctx.lineTo(particles[j].x, particles[j].y);
-            ctx.strokeStyle = `rgba(${GOLD}, ${0.055 * (1 - d / 130)})`;
-            ctx.lineWidth = 0.8;
-            ctx.stroke();
-          }
-        }
-
-        // Draw particle dot
-        ctx.beginPath();
-        ctx.arc(p.x, p.y, p.r, 0, Math.PI * 2);
-        ctx.fillStyle = `rgba(${GOLD}, ${p.o})`;
-        ctx.fill();
-
-        p.x += p.vx;
-        p.y += p.vy;
-        if (p.x < 0 || p.x > canvas.width)  p.vx *= -1;
-        if (p.y < 0 || p.y > canvas.height) p.vy *= -1;
-      }
-    }
-    requestAnimationFrame(draw);
-  };
-
-  resize(); spawn(); draw();
-  window.addEventListener("resize", () => { resize(); spawn(); }, { passive: true });
-}
 
 
 // ΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉ
